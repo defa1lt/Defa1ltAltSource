@@ -19,8 +19,8 @@
                             {
                 "version": "13.4.4",
                 "buildVersion": "1",
-                "localizedDescription": "Описание версии 13.4.4",
-                "releaseNotes": "Начальный выпуск.",
+                "localizedDescription": "Test",
+                "releaseNotes": "Test",
                 "downloadURL": "https://github.com/defa1lt/Defa1ltAltSource/releases/download/CriminalRussiaGangway-13.4.4/CriminalRussiaGangway.ipa"
             }
             ]

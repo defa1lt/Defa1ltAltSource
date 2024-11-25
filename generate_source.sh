@@ -80,7 +80,8 @@ for APP_DIR in "$IPA_DIR"/*/; do
         RELEASE_NOTES=$(jq -r '.releaseNotes' "$VERSION_DETAILS_FILE")
 
         IPA_FILENAME=$(basename "$IPA_FILE")
-        DOWNLOAD_URL="https://github.com/$USERNAME/$REPONAME/releases/download/$APP_NAME-$VERSION/$IPA_FILENAME"
+        APP_DIR_NAME=$(basename "$APP_DIR")
+        DOWNLOAD_URL="https://github.com/$USERNAME/$REPONAME/releases/download/$APP_DIR_NAME-$VERSION/$IPA_FILENAME"
 
         VERSION_JSON=$(cat <<EOF
             {
@@ -99,7 +100,7 @@ EOF
         fi
 
         # Create GitHub release
-        TAG_NAME="$APP_NAME-$VERSION"
+        TAG_NAME="$APP_DIR_NAME-$VERSION"
         RELEASE_TITLE="$APP_NAME $VERSION"
         RELEASE_BODY="$RELEASE_NOTES"
 
@@ -116,7 +117,7 @@ EOF
         fi
     done
 
-    APP_ICON_URL="https://raw.githubusercontent.com/$USERNAME/$REPONAME/main/ipa/$(basename "$APP_DIR")/AppIcon.png"
+    APP_ICON_URL="https://raw.githubusercontent.com/$USERNAME/$REPONAME/main/ipa/$APP_DIR_NAME/AppIcon.png"
 
     APP_JSON=$(cat <<EOF
         {
