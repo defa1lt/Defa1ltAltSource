@@ -59,7 +59,11 @@ for APP_DIR in "$IPA_DIR"/*/; do
     for IMG in "$APP_DIR"*.png; do
         [ -e "$IMG" ] || continue
         IMG_NAME=$(basename "$IMG")
-        SCREENSHOTS+=("\"https://raw.githubusercontent.com/$USERNAME/$REPONAME/main/ipa/$(basename "$APP_DIR")/$IMG_NAME\"")
+        # Replace spaces with %20 for URL encoding
+        IMG_NAME_ENCODED=$(echo "$IMG_NAME" | sed 's/ /%20/g')
+        APP_DIR_NAME=$(basename "$APP_DIR")
+        APP_DIR_NAME_ENCODED=$(echo "$APP_DIR_NAME" | sed 's/ /%20/g')
+        SCREENSHOTS+=("\"https://raw.githubusercontent.com/$USERNAME/$REPONAME/main/ipa/$APP_DIR_NAME_ENCODED/$IMG_NAME_ENCODED\"")
     done
     SCREENSHOTS_JSON=$(printf ",\n                %s" "${SCREENSHOTS[@]}")
     SCREENSHOTS_JSON=${SCREENSHOTS_JSON:2}
@@ -75,21 +79,32 @@ for APP_DIR in "$IPA_DIR"/*/; do
         fi
 
         VERSION=$(jq -r '.version' "$VERSION_DETAILS_FILE")
-        BUILD_VERSION=$(jq -r '.buildVersion' "$VERSION_DETAILS_FILE")
         LOCALIZED_DESCRIPTION=$(jq -r '.localizedDescription' "$VERSION_DETAILS_FILE")
-        RELEASE_NOTES=$(jq -r '.releaseNotes' "$VERSION_DETAILS_FILE")
+        MIN_OS_VERSION=$(jq -r '.minOSVersion' "$VERSION_DETAILS_FILE")
 
         IPA_FILENAME=$(basename "$IPA_FILE")
+        # Replace spaces with %20 for URL encoding
+        IPA_FILENAME_ENCODED=$(echo "$IPA_FILENAME" | sed 's/ /%20/g')
+        VERSION_DIR_NAME=$(basename "$VERSION_DIR")
+        VERSION_DIR_NAME_ENCODED=$(echo "$VERSION_DIR_NAME" | sed 's/ /%20/g')
         APP_DIR_NAME=$(basename "$APP_DIR")
-        DOWNLOAD_URL="https://github.com/$USERNAME/$REPONAME/releases/download/$APP_DIR_NAME-$VERSION/$IPA_FILENAME"
+        APP_DIR_NAME_ENCODED=$(echo "$APP_DIR_NAME" | sed 's/ /%20/g')
+        DOWNLOAD_URL="https://github.com/$USERNAME/$REPONAME/releases/download/$APP_DIR_NAME_ENCODED-$VERSION/$IPA_FILENAME_ENCODED"
+
+        # Get the size of the IPA file in bytes
+        IPA_SIZE=$(stat -c%s "$IPA_FILE")
+
+        # Get the current date and time in ISO 8601 format
+        CURRENT_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
         VERSION_JSON=$(cat <<EOF
             {
                 "version": "$VERSION",
-                "buildVersion": "$BUILD_VERSION",
+                "minOSVersion": "$MIN_OS_VERSION",
                 "localizedDescription": "$LOCALIZED_DESCRIPTION",
-                "releaseNotes": "$RELEASE_NOTES",
-                "downloadURL": "$DOWNLOAD_URL"
+                "downloadURL": "$DOWNLOAD_URL",
+                "size": $IPA_SIZE,
+                "date": "$CURRENT_DATE"
             }
 EOF
         )
@@ -117,7 +132,7 @@ EOF
         fi
     done
 
-    APP_ICON_URL="https://raw.githubusercontent.com/$USERNAME/$REPONAME/main/ipa/$APP_DIR_NAME/AppIcon.png"
+    APP_ICON_URL="https://raw.githubusercontent.com/$USERNAME/$REPONAME/main/ipa/$APP_DIR_NAME_ENCODED/AppIcon.png"
 
     APP_JSON=$(cat <<EOF
         {
@@ -127,30 +142,6 @@ EOF
             "iconURL": "$APP_ICON_URL",
             "localizedDescription": "$LOCALIZED_DESCRIPTION",
             "screenshotURLs": [
-                $SCREENSHOTS_JSON
-            ],
-            "versions": [
-                $VERSIONS_JSON
-            ]
-        }
-EOF
-    )
-    if [ $APP_COUNT -ne 0 ]; then
-        SOURCE_JSON="$SOURCE_JSON,"
-    fi
-    SOURCE_JSON="$SOURCE_JSON$APP_JSON"
-    APP_COUNT=$((APP_COUNT + 1))
-done
-
-SOURCE_JSON="$SOURCE_JSON
-    ]
-}
-"
-
-# Write to Source.json
-echo "$SOURCE_JSON" > "$SOURCE_FILE"
-
-# Commit and push changes
-git add "$SOURCE_FILE"
-git commit -m "Update Source.json"
-git push origin main
+                $SCREENSH
+::contentReference[oaicite:0]{index=0}
+ 

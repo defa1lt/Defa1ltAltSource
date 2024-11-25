@@ -3,30 +3,7 @@
     "subtitle": "",
     "description": "",
     "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/source/v1/SourceIcon.jpeg",
-    "apps": [        {
-            "name": "Criminal Russia 3D. Boris",
-            "bundleIdentifier": "com.gamemisctop.criminalrussiagangway",
-            "developerName": "LIMANSKYGAMES LTD",
-            "localizedDescription": "Test",
-            "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/AppIcon.png",
-            "screenshotURLs": [
-                                "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/AppIcon.png",
-                "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/Screenshot1.png",
-                "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/Screenshot2.png",
-                "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/Screenshot3.png",
-                "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/Screenshot4.png"
-            ],
-            "versions": [
-                            {
-                "version": "13.4.4",
-                "date": "2024-08-24T13:55:16Z",
-                "minOSVersion": "14.0",
-                "localizedDescription": "Test",
-                "downloadURL": "https://github.com/defa1lt/Defa1ltAltSource/releases/download/CriminalRussiaGangway-13.4.4/CriminalRussiaGangway.ipa",
-                "size": 122064838
-            }
-            ]
-        }
+    "apps": [ 
     ],
     "news": []
 }
