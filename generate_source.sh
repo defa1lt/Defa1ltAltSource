@@ -125,6 +125,7 @@ EOF
             "bundleIdentifier": "$BUNDLE_ID",
             "developerName": "$DEVELOPER_NAME",
             "iconURL": "$APP_ICON_URL",
+            "localizedDescription": "$LOCALIZED_DESCRIPTION",
             "screenshotURLs": [
                 $SCREENSHOTS_JSON
             ],
