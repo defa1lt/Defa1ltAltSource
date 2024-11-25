@@ -81,13 +81,13 @@ for APP_DIR in "$IPA_DIR"/*/; do
         LOCALIZED_DESCRIPTION=$(jq -r '.localizedDescription' "$VERSION_DETAILS_FILE")
         MIN_OS_VERSION=$(jq -r '.minOSVersion' "$VERSION_DETAILS_FILE")
         RELEASE_NOTES=$(jq -r '.releaseNotes' "$VERSION_DETAILS_FILE")
+        IPA_SIZE=$(jq -r '.releaseNotes' "$VERSION_DETAILS_FILE")
 
         IPA_FILENAME=$(basename "$IPA_FILE")
         IPA_FILENAME_ENCODED=$(echo "$IPA_FILENAME" | sed 's/ /%20/g')
         APP_ID_ENCODED=$(echo "$APP_ID" | sed 's/ /%20/g')
         VERSION_ENCODED=$(echo "$VERSION" | sed 's/ /%20/g')
         DOWNLOAD_URL="https://github.com/$USERNAME/$REPONAME/releases/download/$APP_ID_ENCODED-$VERSION_ENCODED/$IPA_FILENAME_ENCODED"
-        IPA_SIZE=$(stat -c%s "$IPA_FILE")
         CURRENT_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
         VERSION_JSON=$(cat <<EOF
