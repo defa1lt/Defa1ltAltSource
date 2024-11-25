@@ -87,7 +87,6 @@ for APP_DIR in "$IPA_DIR"/*/; do
             {
                 "version": "$VERSION",
                 "buildVersion": "$BUILD_VERSION",
-                "localizedDescription": "$LOCALIZED_DESCRIPTION",
                 "releaseNotes": "$RELEASE_NOTES",
                 "downloadURL": "$DOWNLOAD_URL"
             }
