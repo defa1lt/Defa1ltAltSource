@@ -24,28 +24,6 @@
                 "downloadURL": "https://github.com/defa1lt/Defa1ltAltSource/releases/download/Criminal Russia 3D. Boris-13.4.4/CriminalRussiaGangway.ipa"
             }
             ]
-        },        {
-            "name": "Last Day on Earth: Survival",
-            "bundleIdentifier": "zombie.survival.craft.z",
-            "developerName": "Kefir",
-            "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/LastDayOnEarth/AppIcon.png",
-            "screenshotURLs": [
-                                
-            ],
-            "versions": [
-                
-            ]
-        },        {
-            "name": "Sneaky Sasquatch",
-            "bundleIdentifier": "com.rac7.SneakySasquatch",
-            "developerName": "Defa1lt",
-            "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/SneakySasquatch/AppIcon.png",
-            "screenshotURLs": [
-                                
-            ],
-            "versions": [
-                
-            ]
         }
     ]
 }
