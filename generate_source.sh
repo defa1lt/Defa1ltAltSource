@@ -97,6 +97,23 @@ EOF
         else
             VERSIONS_JSON="$VERSION_JSON"
         fi
+
+        # Create GitHub release
+        TAG_NAME="$APP_NAME-$VERSION"
+        RELEASE_TITLE="$APP_NAME $VERSION"
+        RELEASE_BODY="$RELEASE_NOTES"
+
+        # Check if release already exists
+        if gh release view "$TAG_NAME" &> /dev/null; then
+            echo "Release $TAG_NAME already exists. Skipping."
+        else
+            # Create a new release
+            gh release create "$TAG_NAME" "$IPA_FILE" \
+                --title "$RELEASE_TITLE" \
+                --notes "$RELEASE_BODY" \
+                --target main
+            echo "Release $TAG_NAME created and $IPA_FILENAME uploaded."
+        fi
     done
 
     APP_ICON_URL="https://raw.githubusercontent.com/$USERNAME/$REPONAME/main/ipa/$(basename "$APP_DIR")/AppIcon.png"
@@ -135,36 +152,3 @@ echo "$SOURCE_JSON" > "$SOURCE_FILE"
 git add "$SOURCE_FILE"
 git commit -m "Update Source.json"
 git push origin main
-
-# Create GitHub release
-for APP_DIR in "$IPA_DIR"/*/; do
-    APP_DETAILS_FILE="${APP_DIR}AppDetails.json"
-    if [ ! -f "$APP_DETAILS_FILE" ]; then
-        continue
-    fi
-
-    APP_NAME=$(jq -r '.name' "$APP_DETAILS_FILE")
-
-    for VERSION_DIR in "$APP_DIR"*/; do
-        VERSION_DETAILS_FILE="${VERSION_DIR}VersionDetails.json"
-        IPA_FILE=$(find "$VERSION_DIR" -name "*.ipa" | head -n 1)
-        if [ ! -f "$VERSION_DETAILS_FILE" ] || [ ! -f "$IPA_FILE" ]; then
-            continue
-        fi
-
-        VERSION=$(jq -r '.version' "$VERSION_DETAILS_FILE")
-        RELEASE_NOTES=$(jq -r '.releaseNotes' "$VERSION_DETAILS_FILE")
-
-        # Construct tag name with application name and version
-        TAG_NAME="$APP_NAME-$VERSION"
-
-        # Check if release already exists
-        if gh release view "$TAG_NAME" &> /dev/null; then
-            echo "Release $TAG_NAME already exists. Skipping."
-            continue
-        fi
-
-        # Create release
-       
-::contentReference[oaicite:0]{index=0}
- 
