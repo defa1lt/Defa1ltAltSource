@@ -81,7 +81,7 @@ for APP_DIR in "$IPA_DIR"/*/; do
         LOCALIZED_DESCRIPTION=$(jq -r '.localizedDescription' "$VERSION_DETAILS_FILE")
         MIN_OS_VERSION=$(jq -r '.minOSVersion' "$VERSION_DETAILS_FILE")
         RELEASE_NOTES=$(jq -r '.releaseNotes' "$VERSION_DETAILS_FILE")
-        IPA_SIZE=$(jq -r '.releaseNotes' "$VERSION_DETAILS_FILE")
+        IPA_SIZE=$(jq -r '.size' "$VERSION_DETAILS_FILE")
 
         IPA_FILENAME=$(basename "$IPA_FILE")
         IPA_FILENAME_ENCODED=$(echo "$IPA_FILENAME" | sed 's/ /%20/g')
