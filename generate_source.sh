@@ -51,7 +51,7 @@ for APP_DIR in "$IPA_DIR"/*/; do
     fi
 
     APP_NAME=$(jq -r '.name' "$APP_DETAILS_FILE")
-    BUNDLE_ID=$(jq -r '.bundleIdentifier' "$APP_DETAILS_FILE")
+    APP_ID=$(jq -r '.bundleIdentifier' "$APP_DETAILS_FILE")
     DEVELOPER_NAME=$(jq -r '.developerName' "$APP_DETAILS_FILE")
 
     # Process screenshots
@@ -59,7 +59,6 @@ for APP_DIR in "$IPA_DIR"/*/; do
     for IMG in "$APP_DIR"*.png; do
         [ -e "$IMG" ] || continue
         IMG_NAME=$(basename "$IMG")
-        # Replace spaces with %20 for URL encoding
         IMG_NAME_ENCODED=$(echo "$IMG_NAME" | sed 's/ /%20/g')
         APP_DIR_NAME=$(basename "$APP_DIR")
         APP_DIR_NAME_ENCODED=$(echo "$APP_DIR_NAME" | sed 's/ /%20/g')
@@ -81,20 +80,14 @@ for APP_DIR in "$IPA_DIR"/*/; do
         VERSION=$(jq -r '.version' "$VERSION_DETAILS_FILE")
         LOCALIZED_DESCRIPTION=$(jq -r '.localizedDescription' "$VERSION_DETAILS_FILE")
         MIN_OS_VERSION=$(jq -r '.minOSVersion' "$VERSION_DETAILS_FILE")
+        RELEASE_NOTES=$(jq -r '.releaseNotes' "$VERSION_DETAILS_FILE")
 
         IPA_FILENAME=$(basename "$IPA_FILE")
-        # Replace spaces with %20 for URL encoding
         IPA_FILENAME_ENCODED=$(echo "$IPA_FILENAME" | sed 's/ /%20/g')
-        VERSION_DIR_NAME=$(basename "$VERSION_DIR")
-        VERSION_DIR_NAME_ENCODED=$(echo "$VERSION_DIR_NAME" | sed 's/ /%20/g')
-        APP_DIR_NAME=$(basename "$APP_DIR")
-        APP_DIR_NAME_ENCODED=$(echo "$APP_DIR_NAME" | sed 's/ /%20/g')
-        DOWNLOAD_URL="https://github.com/$USERNAME/$REPONAME/releases/download/$APP_DIR_NAME_ENCODED-$VERSION/$IPA_FILENAME_ENCODED"
-
-        # Get the size of the IPA file in bytes
+        APP_ID_ENCODED=$(echo "$APP_ID" | sed 's/ /%20/g')
+        VERSION_ENCODED=$(echo "$VERSION" | sed 's/ /%20/g')
+        DOWNLOAD_URL="https://github.com/$USERNAME/$REPONAME/releases/download/$APP_ID_ENCODED-$VERSION_ENCODED/$IPA_FILENAME_ENCODED"
         IPA_SIZE=$(stat -c%s "$IPA_FILE")
-
-        # Get the current date and time in ISO 8601 format
         CURRENT_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
         VERSION_JSON=$(cat <<EOF
@@ -114,19 +107,15 @@ EOF
             VERSIONS_JSON="$VERSION_JSON"
         fi
 
-        # Create GitHub release
-        TAG_NAME="$APP_DIR_NAME-$VERSION"
+        TAG_NAME="$APP_ID-$VERSION"
         RELEASE_TITLE="$APP_NAME $VERSION"
-        RELEASE_BODY="$RELEASE_NOTES"
 
-        # Check if release already exists
         if gh release view "$TAG_NAME" &> /dev/null; then
             echo "Release $TAG_NAME already exists. Skipping."
         else
-            # Create a new release
             gh release create "$TAG_NAME" "$IPA_FILE" \
                 --title "$RELEASE_TITLE" \
-                --notes "$RELEASE_BODY" \
+                --notes "$RELEASE_NOTES" \
                 --target main
             echo "Release $TAG_NAME created and $IPA_FILENAME uploaded."
         fi
@@ -137,11 +126,31 @@ EOF
     APP_JSON=$(cat <<EOF
         {
             "name": "$APP_NAME",
-            "bundleIdentifier": "$BUNDLE_ID",
+            "bundleIdentifier": "$APP_ID",
             "developerName": "$DEVELOPER_NAME",
             "iconURL": "$APP_ICON_URL",
-            "localizedDescription": "$LOCALIZED_DESCRIPTION",
             "screenshotURLs": [
-                $SCREENSH
-::contentReference[oaicite:0]{index=0}
- 
+                $SCREENSHOTS_JSON
+            ],
+            "versions": [
+                $VERSIONS_JSON
+            ]
+        }
+EOF
+    )
+    if [ $APP_COUNT -ne 0 ]; then
+        SOURCE_JSON="$SOURCE_JSON,"
+    fi
+    SOURCE_JSON="$SOURCE_JSON$APP_JSON"
+    APP_COUNT=$((APP_COUNT + 1))
+done
+
+SOURCE_JSON="$SOURCE_JSON
+    ]
+}
+"
+
+echo "$SOURCE_JSON" > "$SOURCE_FILE"
+git add "$SOURCE_FILE"
+git commit -m "Update Source.json"
+git push origin main
