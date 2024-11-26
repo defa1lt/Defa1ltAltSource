@@ -44,6 +44,7 @@ for APP_DIR in "$IPA_DIR"/*/; do
 
     APP_ID=$(jq -r '.bundleIdentifier' "$APP_DETAILS_FILE")
     DEVELOPER_NAME=$(jq -r '.developerName' "$APP_DETAILS_FILE")
+    APP_NAME=$(jq -r '.name' "$APP_DETAILS_FILE")
 
     SCREENSHOTS=()
     for IMG in "$APP_DIR"*.png; do
@@ -111,6 +112,7 @@ EOF
 
     APP_JSON=$(cat <<EOF
         {
+            "name": "$APP_NAME",
             "bundleIdentifier": "$APP_ID",
             "developerName": "$DEVELOPER_NAME",
             "iconURL": "$APP_ICON_URL",
