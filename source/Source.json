@@ -1,5 +1,8 @@
 {
-    "description": "Repository description",
+    
+    "name": "Defa1lt's Source",
+    "subtitle": "",
+    "description": "", 
     "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/source/SourceIcon.jpeg",
     "apps": [        {
             "name": "Criminal Russia 3D. Boris",
@@ -19,7 +22,7 @@
                 "minOSVersion": "14.0",
                 "downloadURL": "https://github.com/defa1lt/Defa1ltAltSource/releases/download/com.gamemisctop.criminalrussiagangway-13.4.4/CriminalRussiaGangway.ipa",
                 "size": 824647,
-                "date": "2024-11-26T09:49:36Z"
+                "date": "2024-11-26T10:00:07Z"
             }
             ]
         },        {
