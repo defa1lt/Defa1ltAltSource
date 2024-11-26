@@ -27,30 +27,6 @@
                 "date": "2024-11-26T10:05:15Z"
             }
             ]
-        },        {
-            "name": "Last Day on Earth: Survival",
-            "localizedDescription": "null",
-            "bundleIdentifier": "zombie.survival.craft.z",
-            "developerName": "Kefir",
-            "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/AppIcon.png",
-            "screenshotURLs": [
-                                
-            ],
-            "versions": [
-                
-            ]
-        },        {
-            "name": "Sneaky Sasquatch",
-            "localizedDescription": "null",
-            "bundleIdentifier": "com.rac7.SneakySasquatch",
-            "developerName": "Defa1lt",
-            "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/AppIcon.png",
-            "screenshotURLs": [
-                                
-            ],
-            "versions": [
-                
-            ]
         }
     ]
 }

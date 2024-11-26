@@ -20,13 +20,21 @@ if [ ! -f "$CONFIG_FILE" ]; then
     echo "Config.json не найден в $SOURCE_DIR"
     exit 1
 fi
+    # "name": "Defa1lt's Source",
+    # "subtitle": "",
+    # "description": ""
 
 USERNAME=$(jq -r '.username' "$CONFIG_FILE")
 REPONAME=$(jq -r '.reponame' "$CONFIG_FILE")
-DESCRIPTION="Repository description"
+SOURCE_NAME=$(jq -r '.name' "$CONFIG_FILE")
+SOURCE_SUBTITLE=$(jq -r '.subtitle' "$CONFIG_FILE")
+SOURCE_DESCRIPTION=$(jq -r '.description' "$CONFIG_FILE")
 SOURCE_JSON=$(cat <<EOF
 {
-    "description": "$DESCRIPTION",
+    
+    "name": "$SOURCE_NAME",
+    "subtitle": "$SOURCE_SUBTITLE",
+    "description": "$SOURCE_DESCRIPTION", 
     "iconURL": "https://raw.githubusercontent.com/$USERNAME/$REPONAME/main/source/SourceIcon.jpeg",
     "apps": [
 EOF
@@ -45,6 +53,7 @@ for APP_DIR in "$IPA_DIR"/*/; do
     APP_ID=$(jq -r '.bundleIdentifier' "$APP_DETAILS_FILE")
     DEVELOPER_NAME=$(jq -r '.developerName' "$APP_DETAILS_FILE")
     APP_NAME=$(jq -r '.name' "$APP_DETAILS_FILE")
+    APP_LOCALIZED_DESCRIPTION=$(jq -r '.localizedDescription' "$APP_DETAILS_FILE")
 
     SCREENSHOTS=()
     for IMG in "$APP_DIR"*.png; do
@@ -69,7 +78,7 @@ for APP_DIR in "$IPA_DIR"/*/; do
 
         VERSION=$(jq -r '.version' "$VERSION_DETAILS_FILE")
         MIN_OS_VERSION=$(jq -r '.minOSVersion' "$VERSION_DETAILS_FILE")
-        RELEASE_NOTES=$(jq -r '.releaseNotes' "$VERSION_DETAILS_FILE")
+        VERSION_LOCALIZED_DESCRIPTION=$(jq -r '.localizedDescription' "$VERSION_DETAILS_FILE")
         IPA_SIZE=$(jq -r '.size' "$VERSION_DETAILS_FILE")
 
         IPA_FILENAME=$(basename "$IPA_FILE")
@@ -82,6 +91,7 @@ for APP_DIR in "$IPA_DIR"/*/; do
         VERSION_JSON=$(cat <<EOF
             {
                 "version": "$VERSION",
+                "localizedDescription":"$VERSION_LOCALIZED_DESCRIPTION",
                 "minOSVersion": "$MIN_OS_VERSION",
                 "downloadURL": "$DOWNLOAD_URL",
                 "size": $IPA_SIZE,
@@ -113,6 +123,7 @@ EOF
     APP_JSON=$(cat <<EOF
         {
             "name": "$APP_NAME",
+            "localizedDescription": "$APP_LOCALIZED_DESCRIPTION",
             "bundleIdentifier": "$APP_ID",
             "developerName": "$DEVELOPER_NAME",
             "iconURL": "$APP_ICON_URL",
