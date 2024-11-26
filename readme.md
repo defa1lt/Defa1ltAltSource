@@ -23,46 +23,6 @@ After adding the source, you can browse and install the available applications t
 
 ---
 
-## Using Git LFS for Large Files 📂
-
-This repository uses **Git Large File Storage (Git LFS)** to manage large binary files, such as `.ipa` files. Git LFS ensures efficient version control and avoids exceeding file size limits in the repository.
-
-### Setting Up Git LFS
-
-1. **Install Git LFS**:
-
-   - **macOS**:
-     ```bash
-     brew install git-lfs
-     ```
-
-   - **Ubuntu**:
-     ```bash
-     sudo apt-get install git-lfs
-     ```
-
-   - **Windows**:
-     Download and install Git LFS from the [official site](https://git-lfs.github.com/).
-
-2. **Initialize Git LFS** in the repository:
-   ```bash
-   git lfs install
-   ```
-
-3. **Track large files** (e.g., `.ipa` files):
-   ```bash
-   git lfs track "*.ipa"
-   ```
-
-   This adds the file pattern to the `.gitattributes` file.
-
-4. **Commit and Push** large files using Git LFS:
-   - Stage the `.gitattributes` file:
-     ```bash
-     git add .gitattributes
-     ```
----
-
 ## Generation Scripts ⚙️
 
 This repository includes scripts to automate the generation of the `Source.json` file and update the `README.md`:
@@ -74,21 +34,21 @@ This repository includes scripts to automate the generation of the `Source.json`
 
 Ensure the following dependencies are installed:
 
-- **Unix-like systems**:
-  - `jq`: A lightweight and flexible command-line JSON processor. Install it using your package manager:
 
-    - **macOS**:
-      ```bash
-      brew install jq
-      ```
+- [`jq`](https://stedolan.github.io/jq/) (for JSON processing):
 
-    - **Ubuntu**:
-      ```bash
-      sudo apt-get install jq
-      ```
+  ```bash
+  sudo apt-get install jq # For Linux
+  brew install jq         # For macOS
+  ```
 
-- **Windows systems**:
-  - `jq`: Download the Windows executable from the [official repository](https://github.com/stedolan/jq/releases) and add it to your system's PATH.
+- [GitHub CLI (`gh`)](https://cli.github.com/):
+
+  ```bash
+  brew install gh         # For macOS
+  sudo apt install gh     # For Linux
+  ```
+
 
 ### Using the Scripts 🛠️
 
@@ -100,36 +60,11 @@ Ensure the following dependencies are installed:
      ```bash
      chmod +x generate_source.sh
      ```
-   - **Run** the script with the desired flag:
+   - **Run** the script:
      ```bash
-     ./generate_source.sh -u
-     ```
-     or
-     ```bash
-     ./generate_source.sh -c
+     ./generate_source.sh 
      ```
 
-2. **For Windows systems**:
-
-   - **Open** the Command Prompt.
-   - **Navigate** to the repository directory.
-   - **Run** the script with the desired flag:
-     ```cmd
-     generate_source.bat -u
-     ```
-     or
-     ```cmd
-     generate_source.bat -c
-     ```
-
-### Flag Descriptions 🏳️
-
-- `-u`: Updates the latest version of the application. 🔄
-- `-c`: Creates a new version of the application. 🆕
-
-**Note:** Before running the scripts, ensure all necessary dependencies are installed. 📦
-
----
 
 ## License 📜
 
