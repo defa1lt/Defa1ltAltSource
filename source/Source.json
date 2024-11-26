@@ -6,6 +6,7 @@
     "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/source/SourceIcon.jpeg",
     "apps": [        {
             "name": "Criminal Russia 3D. Boris",
+            "localizedDescription": "Test",
             "bundleIdentifier": "com.gamemisctop.criminalrussiagangway",
             "developerName": "LIMANSKYGAMES LTD",
             "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/AppIcon.png",
@@ -19,14 +20,16 @@
             "versions": [
                             {
                 "version": "13.4.4",
+                "localizedDescription":"Test",
                 "minOSVersion": "14.0",
                 "downloadURL": "https://github.com/defa1lt/Defa1ltAltSource/releases/download/com.gamemisctop.criminalrussiagangway-13.4.4/CriminalRussiaGangway.ipa",
                 "size": 824647,
-                "date": "2024-11-26T10:00:07Z"
+                "date": "2024-11-26T10:05:15Z"
             }
             ]
         },        {
             "name": "Last Day on Earth: Survival",
+            "localizedDescription": "null",
             "bundleIdentifier": "zombie.survival.craft.z",
             "developerName": "Kefir",
             "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/AppIcon.png",
@@ -38,6 +41,7 @@
             ]
         },        {
             "name": "Sneaky Sasquatch",
+            "localizedDescription": "null",
             "bundleIdentifier": "com.rac7.SneakySasquatch",
             "developerName": "Defa1lt",
             "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/AppIcon.png",
