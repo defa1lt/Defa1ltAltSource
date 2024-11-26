@@ -24,7 +24,45 @@
                 "minOSVersion": "14.0",
                 "downloadURL": "https://github.com/defa1lt/Defa1ltAltSource/releases/download/com.gamemisctop.criminalrussiagangway-13.4.4/CriminalRussiaGangway.ipa",
                 "size": 824647,
-                "date": "2024-11-26T10:05:15Z"
+                "date": "2024-11-26T10:22:50Z"
+            }
+            ]
+        },        {
+            "name": "Last Day on Earth: Survival",
+            "localizedDescription": "null",
+            "bundleIdentifier": "zombie.survival.craft.z",
+            "developerName": "Kefir",
+            "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/LastDayOnEarth/AppIcon.png",
+            "screenshotURLs": [
+                                "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/LastDayOnEarth/AppIcon.png"
+            ],
+            "versions": [
+                            {
+                "version": "1.29.2",
+                "localizedDescription":"Test",
+                "minOSVersion": "14.0",
+                "downloadURL": "https://github.com/defa1lt/Defa1ltAltSource/releases/download/zombie.survival.craft.z-1.29.2/LastDayOnEarth.ipa",
+                "size": 795340,
+                "date": "2024-11-26T10:22:52Z"
+            }
+            ]
+        },        {
+            "name": "Sneaky Sasquatch",
+            "localizedDescription": "null",
+            "bundleIdentifier": "com.rac7.SneakySasquatch",
+            "developerName": "RAC7",
+            "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/SneakySasquatch/AppIcon.png",
+            "screenshotURLs": [
+                                "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/SneakySasquatch/AppIcon.png"
+            ],
+            "versions": [
+                            {
+                "version": "2.0.3",
+                "localizedDescription":"Test",
+                "minOSVersion": "14.0",
+                "downloadURL": "https://github.com/defa1lt/Defa1ltAltSource/releases/download/com.rac7.SneakySasquatch-2.0.3/SneakySasquatch.ipa",
+                "size": 309052,
+                "date": "2024-11-26T10:24:48Z"
             }
             ]
         }
