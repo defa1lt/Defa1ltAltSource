@@ -1,6 +1,8 @@
 {
-    "description": "Repository description",
-    "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/source/SourceIcon.jpeg",
+    "name": "Defa1lt's Source",
+    "subtitle": "",
+    "description": "",
+    "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/source/v1/SourceIcon.jpeg",
     "apps": [        {
             "bundleIdentifier": "com.gamemisctop.criminalrussiagangway",
             "developerName": "LIMANSKYGAMES LTD",
