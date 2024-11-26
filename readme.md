@@ -14,7 +14,7 @@ To add this source to AltStore:
 4. **Enter** the following source URL:
 
    ```
-   https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/source/v1/Source.json
+   https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/source/Source.json
    ```
 
 5. **Tap** **"Add Source"**.
