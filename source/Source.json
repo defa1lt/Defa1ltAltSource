@@ -1,9 +1,27 @@
 {
-    "name": "Defa1lt's Source",
-    "subtitle": "",
-    "description": "",
-    "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/source/v1/SourceIcon.jpeg",
-    "apps": [
+    "description": "Repository description",
+    "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/source/SourceIcon.jpeg",
+    "apps": [        {
+            "bundleIdentifier": "com.gamemisctop.criminalrussiagangway",
+            "developerName": "LIMANSKYGAMES LTD",
+            "iconURL": "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/AppIcon.png",
+            "screenshotURLs": [
+                                "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/AppIcon.png",
+                "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/Screenshot1.png",
+                "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/Screenshot2.png",
+                "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/Screenshot3.png",
+                "https://raw.githubusercontent.com/defa1lt/Defa1ltAltSource/main/ipa/CriminalRussiaGangway/Screenshot4.png"
+            ],
+            "versions": [
+                            {
+                "version": "13.4.4",
+                "minOSVersion": "14.0",
+                "downloadURL": "https://github.com/defa1lt/Defa1ltAltSource/releases/download/com.gamemisctop.criminalrussiagangway-13.4.4/CriminalRussiaGangway.ipa",
+                "size": 824647,
+                "date": "2024-11-26T09:25:19Z"
+            }
+            ]
+        }
     ]
 }
 
