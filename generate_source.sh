@@ -1,60 +1,50 @@
 #!/bin/bash
 
-# Check for jq installation
 if ! command -v jq &> /dev/null; then
-    echo "jq is not installed. Please install jq to run this script."
+    echo "jq is not установлен. Установите jq для запуска скрипта."
     exit 1
 fi
 
-# Check for gh installation
 if ! command -v gh &> /dev/null; then
-    echo "GitHub CLI (gh) is not installed. Please install gh to run this script."
+    echo "GitHub CLI (gh) не установлен. Установите gh для запуска скрипта."
     exit 1
 fi
 
-# Directories and files
+
 IPA_DIR="./ipa"
-SOURCE_DIR="./source/v1"
+SOURCE_DIR="./source"
 CONFIG_FILE="$SOURCE_DIR/Config.json"
 SOURCE_FILE="$SOURCE_DIR/Source.json"
 
-# Check for Config.json
 if [ ! -f "$CONFIG_FILE" ]; then
-    echo "Config.json not found in $SOURCE_DIR"
+    echo "Config.json не найден в $SOURCE_DIR"
     exit 1
 fi
 
-# Read configuration
 USERNAME=$(jq -r '.username' "$CONFIG_FILE")
 REPONAME=$(jq -r '.reponame' "$CONFIG_FILE")
-SOURCE_NAME=$(jq -r '.name' "$CONFIG_FILE")
-SUBTITLE=$(jq -r '.subtitle' "$CONFIG_FILE")
-DESCRIPTION=$(jq -r '.description' "$CONFIG_FILE")
-
-# Initialize Source.json content
+DESCRIPTION="Repository description"
 SOURCE_JSON=$(cat <<EOF
 {
-    "name": "$SOURCE_NAME",
-    "subtitle": "$SUBTITLE",
     "description": "$DESCRIPTION",
-    "iconURL": "https://raw.githubusercontent.com/$USERNAME/$REPONAME/main/source/v1/SourceIcon.jpeg",
+    "iconURL": "https://raw.githubusercontent.com/$USERNAME/$REPONAME/main/source/SourceIcon.jpeg",
     "apps": [
 EOF
 )
 
 APP_COUNT=0
+
+
 for APP_DIR in "$IPA_DIR"/*/; do
     APP_DETAILS_FILE="${APP_DIR}AppDetails.json"
     if [ ! -f "$APP_DETAILS_FILE" ]; then
-        echo "AppDetails.json not found in $APP_DIR"
+        echo "AppDetails.json не найден в $APP_DIR"
         continue
     fi
 
-    APP_NAME=$(jq -r '.name' "$APP_DETAILS_FILE")
     APP_ID=$(jq -r '.bundleIdentifier' "$APP_DETAILS_FILE")
     DEVELOPER_NAME=$(jq -r '.developerName' "$APP_DETAILS_FILE")
 
-    # Process screenshots
     SCREENSHOTS=()
     for IMG in "$APP_DIR"*.png; do
         [ -e "$IMG" ] || continue
@@ -67,18 +57,16 @@ for APP_DIR in "$IPA_DIR"/*/; do
     SCREENSHOTS_JSON=$(printf ",\n                %s" "${SCREENSHOTS[@]}")
     SCREENSHOTS_JSON=${SCREENSHOTS_JSON:2}
 
-    # Process versions
     VERSIONS_JSON=""
     for VERSION_DIR in "$APP_DIR"*/; do
         VERSION_DETAILS_FILE="${VERSION_DIR}VersionDetails.json"
         IPA_FILE=$(find "$VERSION_DIR" -name "*.ipa" | head -n 1)
         if [ ! -f "$VERSION_DETAILS_FILE" ] || [ ! -f "$IPA_FILE" ]; then
-            echo "VersionDetails.json or IPA not found in $VERSION_DIR"
+            echo "VersionDetails.json или IPA не найдены в $VERSION_DIR"
             continue
         fi
 
         VERSION=$(jq -r '.version' "$VERSION_DETAILS_FILE")
-        LOCALIZED_DESCRIPTION=$(jq -r '.localizedDescription' "$VERSION_DETAILS_FILE")
         MIN_OS_VERSION=$(jq -r '.minOSVersion' "$VERSION_DETAILS_FILE")
         RELEASE_NOTES=$(jq -r '.releaseNotes' "$VERSION_DETAILS_FILE")
         IPA_SIZE=$(jq -r '.size' "$VERSION_DETAILS_FILE")
@@ -94,7 +82,6 @@ for APP_DIR in "$IPA_DIR"/*/; do
             {
                 "version": "$VERSION",
                 "minOSVersion": "$MIN_OS_VERSION",
-                "localizedDescription": "$LOCALIZED_DESCRIPTION",
                 "downloadURL": "$DOWNLOAD_URL",
                 "size": $IPA_SIZE,
                 "date": "$CURRENT_DATE"
@@ -108,16 +95,15 @@ EOF
         fi
 
         TAG_NAME="$APP_ID-$VERSION"
-        RELEASE_TITLE="$APP_NAME $VERSION"
 
         if gh release view "$TAG_NAME" &> /dev/null; then
-            echo "Release $TAG_NAME already exists. Skipping."
+            echo "Релиз $TAG_NAME уже существует. Пропускаем."
         else
             gh release create "$TAG_NAME" "$IPA_FILE" \
-                --title "$RELEASE_TITLE" \
+                --title "Release $VERSION" \
                 --notes "$RELEASE_NOTES" \
                 --target main
-            echo "Release $TAG_NAME created and $IPA_FILENAME uploaded."
+            echo "Релиз $TAG_NAME создан и $IPA_FILENAME загружен."
         fi
     done
 
@@ -125,7 +111,6 @@ EOF
 
     APP_JSON=$(cat <<EOF
         {
-            "name": "$APP_NAME",
             "bundleIdentifier": "$APP_ID",
             "developerName": "$DEVELOPER_NAME",
             "iconURL": "$APP_ICON_URL",
